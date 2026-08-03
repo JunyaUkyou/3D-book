@@ -9,6 +9,8 @@ interface FrontCoverProps {
   onOpenComplete: () => void;
 }
 
+const DURATION_SEC = 2.0;
+
 export const FrontCover: React.FC<FrontCoverProps> = ({
   isOpened,
   onOpenComplete,
@@ -16,6 +18,9 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
   const coverGroupRef = useRef<THREE.Group>(null!);
   const progressRef = useRef(0);
   const hasCompletedRef = useRef(false);
+
+  // 1秒あたりの進捗スピードを出す
+  const speed = 1.0 / DURATION_SEC;
 
   // 表紙表面テクスチャ
   const coverTexture = useMemo(() => {
@@ -43,7 +48,7 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
 
     if (!isOpened) {
       // 背表紙を軸にして閉じた状態(0度)から左側(-180度)へ開くアニメーション
-      progressRef.current = Math.min(1, progressRef.current + delta * 1.0);
+      progressRef.current = Math.min(1, progressRef.current + delta * speed);
       const targetRotationY = -progressRef.current * Math.PI;
       coverGroupRef.current.rotation.y = targetRotationY;
       coverGroupRef.current.position.z =
