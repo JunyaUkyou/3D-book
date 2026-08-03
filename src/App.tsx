@@ -62,7 +62,7 @@ export default function App() {
       <Canvas
         key={resetKey}
         shadows
-        camera={{ position: [0, 2.8, 4.5], fov: 32 }}
+        camera={{ position: [0, 0, 6], fov: 32 }}
         className="w-full h-full"
       >
         <ambientLight intensity={1.2} />
