@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls, ContactShadows } from "@react-three/drei";
+import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 
 export default function App() {
