@@ -78,14 +78,6 @@ export default function App() {
         <ScrollControls pages={isOpened ? 5 : 1} damping={0.2}>
           <Book isOpened={isOpened} setIsOpened={setIsOpened} />
         </ScrollControls>
-
-        <ContactShadows
-          position={[0, -0.22, 0]}
-          opacity={0.6}
-          scale={10}
-          blur={1.5}
-          far={4}
-        />
       </Canvas>
     </div>
   );
