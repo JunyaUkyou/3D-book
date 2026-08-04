@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls, ContactShadows } from "@react-three/drei";
+import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 
 export default function App() {
@@ -62,7 +62,7 @@ export default function App() {
       <Canvas
         key={resetKey}
         shadows
-        camera={{ position: [0, 2.8, 4.5], fov: 32 }}
+        camera={{ position: [0, 0, 6], fov: 32 }}
         className="w-full h-full"
       >
         <ambientLight intensity={1.2} />
@@ -78,14 +78,6 @@ export default function App() {
         <ScrollControls pages={isOpened ? 5 : 1} damping={0.2}>
           <Book isOpened={isOpened} setIsOpened={setIsOpened} />
         </ScrollControls>
-
-        <ContactShadows
-          position={[0, -0.22, 0]}
-          opacity={0.6}
-          scale={10}
-          blur={1.5}
-          far={4}
-        />
       </Canvas>
     </div>
   );
