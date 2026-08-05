@@ -10,7 +10,6 @@ interface PagehProps {
   title: string;
   chapter: string;
   content: string;
-  isOpened: boolean;
 }
 
 export const Page: React.FC<PagehProps> = ({
@@ -19,7 +18,6 @@ export const Page: React.FC<PagehProps> = ({
   title,
   chapter,
   content,
-  isOpened,
 }) => {
   const groupRef = useRef<THREE.Group>(null!);
   const scroll = useScroll();

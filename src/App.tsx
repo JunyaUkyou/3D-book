@@ -1,18 +1,9 @@
-import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
-import { Stats, OrbitControls } from "@react-three/drei";
+// import { Stats, OrbitControls } from "@react-three/drei";
 
 export default function App() {
-  const [isOpened, setIsOpened] = useState(false);
-  const [resetKey, setResetKey] = useState(0);
-
-  const handleReset = () => {
-    setIsOpened(false);
-    setResetKey((prev) => prev + 1);
-  };
-
   return (
     <div className="w-screen h-screen bg-slate-950 font-sans text-white overflow-hidden select-none relative">
       {/* ヘッダーUI */}
@@ -25,34 +16,11 @@ export default function App() {
             React Three Fiber + Scroll-driven Flip Animation
           </p>
         </div>
-
-        <div className="flex items-center gap-3 pointer-events-auto">
-          <span
-            className={`px-3 py-1 text-xs rounded-full border ${
-              isOpened
-                ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
-                : "bg-amber-500/10 border-amber-500/30 text-amber-300 animate-pulse"
-            }`}
-          >
-            {isOpened ? "● OPENED (Scroll active)" : "○ OPENING COVER..."}
-          </span>
-
-          <button
-            onClick={handleReset}
-            className="px-4 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition"
-          >
-            Replay Opening
-          </button>
-        </div>
       </header>
 
       {/* スクロール誘導メッセージ */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center">
-        <div
-          className={`transition-all duration-700 ${
-            isOpened ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
+        <div className={"transition-all duration-700"}>
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-full text-xs text-slate-300 shadow-xl">
             <span>↓ スクロールしてページをめくってください</span>
           </div>
@@ -61,7 +29,6 @@ export default function App() {
 
       {/* 3D Canvas */}
       <Canvas
-        key={resetKey}
         shadows
         camera={{ position: [0, 0, 6], fov: 32 }}
         className="w-full h-full"
@@ -77,7 +44,7 @@ export default function App() {
         <pointLight position={[-5, 5, -2]} intensity={0.5} />
 
         <ScrollControls pages={6} damping={0.2}>
-          <Book isOpened={isOpened} setIsOpened={setIsOpened} />
+          <Book />
         </ScrollControls>
         {/* <OrbitControls />
         <Stats /> */}

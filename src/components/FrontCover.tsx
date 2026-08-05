@@ -1,27 +1,12 @@
 import * as THREE from "three";
-import React, { useRef, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
 import { createPageCanvasTexture } from "../utiles/createPageCanvasTexture";
 
-interface FrontCoverProps {
-  isOpened: boolean;
-  onOpenComplete: () => void;
-}
-
-// const DURATION_SEC = 2.0;
-
-export const FrontCover: React.FC<FrontCoverProps> = ({
-  isOpened,
-  onOpenComplete,
-}) => {
+export const FrontCover = () => {
   const scroll = useScroll();
   const coverGroupRef = useRef<THREE.Group>(null!);
-  const progressRef = useRef(0);
-  const hasCompletedRef = useRef(false);
-
-  // 1秒あたりの進捗スピードを出す
-  // const speed = 1.0 / DURATION_SEC;
 
   // 表紙表面テクスチャ
   const coverTexture = useMemo(() => {
@@ -45,29 +30,9 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
     });
   }, []);
 
-  // useFrame((_, delta) => {
-  //   if (!coverGroupRef.current) return;
-
-  //   if (!isOpened) {
-  //     // 背表紙を軸にして閉じた状態(0度)から左側(-180度)へ開くアニメーション
-  //     progressRef.current = Math.min(1, progressRef.current + delta * speed);
-  //     const targetRotationY = -progressRef.current * Math.PI;
-  //     coverGroupRef.current.rotation.y = targetRotationY;
-  //     coverGroupRef.current.position.z =
-  //       0.03 + Math.sin(progressRef.current * Math.PI) * 0.15;
-
-  //     if (progressRef.current >= 0.98 && !hasCompletedRef.current) {
-  //       hasCompletedRef.current = true;
-  //       onOpenComplete();
-  //     }
-  //   } else {
-  //     coverGroupRef.current.rotation.y = -Math.PI;
-  //     coverGroupRef.current.position.z = 0.005;
-  //   }
-  // });
-
   const pageNumber = 0;
   const totalPages = 6;
+
   useFrame((_, delta) => {
     if (!coverGroupRef.current) return;
 
@@ -84,9 +49,7 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
     // まだ自分のスクロールに入っていなければ0
     // 自分の領域をこえたら1
     const progress = Math.max(0, Math.min(1, pageOffset / pageStep));
-    // if (progress !== 0) {
-    //   console.log({ progress });
-    // }
+
     // 0度（右）から -180度（左）へ回転
     const targetRotationY = -progress * Math.PI;
     coverGroupRef.current.rotation.y = THREE.MathUtils.damp(
