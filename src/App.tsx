@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
+import { Stats, OrbitControls } from "@react-three/drei";
 
 export default function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -75,9 +76,11 @@ export default function App() {
         />
         <pointLight position={[-5, 5, -2]} intensity={0.5} />
 
-        <ScrollControls pages={isOpened ? 5 : 1} damping={0.2}>
+        <ScrollControls pages={6} damping={0.2}>
           <Book isOpened={isOpened} setIsOpened={setIsOpened} />
         </ScrollControls>
+        {/* <OrbitControls />
+        <Stats /> */}
       </Canvas>
     </div>
   );
