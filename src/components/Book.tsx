@@ -3,11 +3,6 @@ import { FrontCover } from "./FrontCover";
 
 import { BookBase } from "./BookBase";
 
-interface BookSceneProps {
-  isOpened: boolean;
-  setIsOpened: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 const PAGES_DATA = [
   {
     chapter: "Chapter I",
@@ -35,7 +30,7 @@ const PAGES_DATA = [
   },
 ];
 
-export const Book: React.FC<BookSceneProps> = ({ isOpened, setIsOpened }) => {
+export const Book = () => {
   return (
     <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}>
       <BookBase />
@@ -43,19 +38,15 @@ export const Book: React.FC<BookSceneProps> = ({ isOpened, setIsOpened }) => {
       {PAGES_DATA.map((data, index) => (
         <Page
           key={index}
-          number={index}
-          totalPages={PAGES_DATA.length}
+          pageNumber={index + 1}
+          totalPages={PAGES_DATA.length + 1}
           chapter={data.chapter}
           title={data.title}
           content={data.content}
-          isOpened={isOpened}
         />
       ))}
 
-      <FrontCover
-        isOpened={isOpened}
-        onOpenComplete={() => setIsOpened(true)}
-      />
+      <FrontCover />
     </group>
   );
 };
