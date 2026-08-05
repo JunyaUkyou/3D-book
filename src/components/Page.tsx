@@ -86,7 +86,7 @@ export const Page: React.FC<PagehProps> = ({
 
       {/* 裏面 */}
       <mesh
-        position={[0.8, 0, -0.001]}
+        position={[0.8, 0, -0.011]}
         rotation={[0, Math.PI, 0]}
         castShadow
         receiveShadow
