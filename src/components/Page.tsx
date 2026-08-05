@@ -23,6 +23,7 @@ export const Page: React.FC<PagehProps> = ({
 }) => {
   const groupRef = useRef<THREE.Group>(null!);
   const scroll = useScroll();
+  console.log({ number, title });
 
   // 表面テクスチャ
   const frontTexture = useMemo(() => {
@@ -30,7 +31,7 @@ export const Page: React.FC<PagehProps> = ({
       title,
       chapter,
       content,
-      pageNumber: number * 2 + 1,
+      pageNumber: number * 2,
     });
   }, [title, chapter, content, number]);
 
@@ -41,7 +42,7 @@ export const Page: React.FC<PagehProps> = ({
       chapter: "",
       content:
         "前のページの詳細な解説および補足資料がこちらに記載されています。",
-      pageNumber: number * 2 + 2,
+      pageNumber: number * 2 + 1,
       bgColor: "#edf2f7",
     });
   }, [title, number]);
@@ -49,12 +50,12 @@ export const Page: React.FC<PagehProps> = ({
   useFrame((_, delta) => {
     if (!groupRef.current) return;
 
-    if (!isOpened) {
-      // 本が開く前は右側で待機
-      groupRef.current.rotation.y = 0;
-      groupRef.current.position.z = (totalPages - number) * 0.006;
-      return;
-    }
+    // if (!isOpened) {
+    //   // 本が開く前は右側で待機
+    //   groupRef.current.rotation.y = 0;
+    //   groupRef.current.position.z = (totalPages - number) * 0.006;
+    //   return;
+    // }
 
     // スクロールに応じたページめくり
     const scrollOffset = scroll.offset;

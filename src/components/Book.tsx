@@ -43,8 +43,8 @@ export const Book: React.FC<BookSceneProps> = ({ isOpened, setIsOpened }) => {
       {PAGES_DATA.map((data, index) => (
         <Page
           key={index}
-          number={index}
-          totalPages={PAGES_DATA.length}
+          number={index + 1}
+          totalPages={PAGES_DATA.length + 1}
           chapter={data.chapter}
           title={data.title}
           content={data.content}

@@ -41,6 +41,7 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
       content:
         "スクロールすることで、3D空間上の本がリアルにめくられていきます。",
       bgColor: "#f1f5f9",
+      pageNumber: 1,
     });
   }, []);
 
@@ -66,13 +67,14 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
   // });
 
   const pageNumber = 0;
+  const totalPages = 6;
   useFrame((_, delta) => {
     if (!coverGroupRef.current) return;
 
     // スクロール位置
     const scrollOffset = scroll.offset;
     // 1ページあたりの幅
-    const pageStep = 1 / 6;
+    const pageStep = 1 / totalPages;
     // 1ページごとのスタート位置
     const pageStart = pageNumber * pageStep;
     // ページ内の進んだ距離
@@ -90,6 +92,20 @@ export const FrontCover: React.FC<FrontCoverProps> = ({
     coverGroupRef.current.rotation.y = THREE.MathUtils.damp(
       coverGroupRef.current.rotation.y,
       targetRotationY,
+      12,
+      delta,
+    );
+
+    // // 重なり順と浮き上がり（アーチ効果）
+    const isFlipped = progress > 0.5;
+    const baseZ = isFlipped
+      ? 0.01 + pageNumber * 0.006
+      : (totalPages - pageNumber) * 0.006;
+    const arcLift = Math.sin(progress * Math.PI) * 0.15;
+
+    coverGroupRef.current.position.z = THREE.MathUtils.damp(
+      coverGroupRef.current.position.z,
+      baseZ + arcLift,
       12,
       delta,
     );
