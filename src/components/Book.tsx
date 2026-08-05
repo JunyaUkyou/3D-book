@@ -38,7 +38,7 @@ export const Book = () => {
       {PAGES_DATA.map((data, index) => (
         <Page
           key={index}
-          number={index + 1}
+          pageNumber={index + 1}
           totalPages={PAGES_DATA.length + 1}
           chapter={data.chapter}
           title={data.title}

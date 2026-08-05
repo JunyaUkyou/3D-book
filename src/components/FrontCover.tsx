@@ -3,6 +3,7 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
 import { createPageCanvasTexture } from "../utiles/createPageCanvasTexture";
+import { updatePageTurn } from "../utiles/updatePageTurn";
 
 export const FrontCover = () => {
   const scroll = useScroll();
@@ -38,20 +39,14 @@ export const FrontCover = () => {
 
     // スクロール位置
     const scrollOffset = scroll.offset;
-    // 1ページあたりの幅
-    const pageStep = 1 / totalPages;
-    // 1ページごとのスタート位置
-    const pageStart = pageNumber * pageStep;
-    // ページ内の進んだ距離
-    const pageOffset = scrollOffset - pageStart;
 
-    // ページ内のスクロール移動進捗率(0~1)を取得
-    // まだ自分のスクロールに入っていなければ0
-    // 自分の領域をこえたら1
-    const progress = Math.max(0, Math.min(1, pageOffset / pageStep));
+    const { targetRotationY, targetPositionZ } = updatePageTurn({
+      scrollOffset,
+      totalPages,
+      pageNumber,
+    });
 
-    // 0度（右）から -180度（左）へ回転
-    const targetRotationY = -progress * Math.PI;
+    // ページの回転を設定
     coverGroupRef.current.rotation.y = THREE.MathUtils.damp(
       coverGroupRef.current.rotation.y,
       targetRotationY,
@@ -59,16 +54,10 @@ export const FrontCover = () => {
       delta,
     );
 
-    // // 重なり順と浮き上がり（アーチ効果）
-    const isFlipped = progress > 0.5;
-    const baseZ = isFlipped
-      ? 0.01 + pageNumber * 0.006
-      : (totalPages - pageNumber) * 0.006;
-    const arcLift = Math.sin(progress * Math.PI) * 0.15;
-
+    // 重なり順と浮き上がり（アーチ効果）
     coverGroupRef.current.position.z = THREE.MathUtils.damp(
       coverGroupRef.current.position.z,
-      baseZ + arcLift,
+      targetPositionZ,
       12,
       delta,
     );
