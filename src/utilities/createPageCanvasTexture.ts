@@ -1,28 +1,37 @@
 import * as THREE from "three";
+import { type PageData } from "../const/pagesData";
 
 // 2D Canvasを使用して高精細なテクスチャを即時生成するヘルパー関数
 // これにより RenderTexture / createReconciler 起因の環境エラーを完璧に回避します
 export function createPageCanvasTexture({
-  title,
-  chapter = "",
-  content = "",
+  // title,
+  // chapter = "",
+  // content = "",
+  // pageNumber,
+  // bgColor = "#fdfbf7",
+  // textColor = "#2d3748",
+  // borderColor = "#e2e8f0",
+  // isCover = false,
+  // coverSubtitle = "",
+  pagedata,
   pageNumber,
-  bgColor = "#fdfbf7",
-  textColor = "#2d3748",
-  borderColor = "#e2e8f0",
-  isCover = false,
-  coverSubtitle = "",
 }: {
-  title: string;
-  chapter?: string;
-  content?: string;
-  pageNumber?: number | string;
-  bgColor?: string;
-  textColor?: string;
-  borderColor?: string;
-  isCover?: boolean;
-  coverSubtitle?: string;
+  // title: string;
+  // chapter?: string;
+  // content?: string;
+  // pageNumber?: number | string;
+  // bgColor?: string;
+  // textColor?: string;
+  // borderColor?: string;
+  // isCover?: boolean;
+  // coverSubtitle?: string;
+  pagedata: PageData;
+  pageNumber: number;
 }) {
+  const borderColor = "#e2e8f0";
+  const textColor = "#2d3748";
+  const { isCover, coverSubtitle, title, chapter, content } = pagedata;
+
   const canvas = document.createElement("canvas");
   canvas.width = 512;
   canvas.height = 736;
@@ -30,10 +39,14 @@ export function createPageCanvasTexture({
   if (!ctx) return new THREE.CanvasTexture(canvas);
 
   // 背景
-  ctx.fillStyle = bgColor;
+  // ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (isCover) {
+    // 背景
+    ctx.fillStyle = "#1a202c";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     // 表紙装飾フレーム
     ctx.strokeStyle = "#d69e2e";
     ctx.lineWidth = 10;
@@ -65,6 +78,11 @@ export function createPageCanvasTexture({
       canvas.height - 80,
     );
   } else {
+    console.log({ isCover, title });
+
+    ctx.fillStyle = "#fdfbf7";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     // 通常ページのフレーム
     ctx.strokeStyle = borderColor;
     ctx.lineWidth = 4;
