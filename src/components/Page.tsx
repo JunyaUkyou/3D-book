@@ -1,12 +1,9 @@
-import * as THREE from "three";
-import { useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
-import { useScroll } from "@react-three/drei";
+import { useMemo } from "react";
 import { createPageCanvasTexture } from "../utilities/createPageCanvasTexture";
-import { updatePageTurn } from "../utilities/updatePageTurn";
 import { type PageData } from "../const/pagesData";
 import { PAGE_CONFIG } from "../const/pageConfig";
 import { PageFace } from "./PageFace";
+import { useScrollPageTurn } from "../hooks/useScrollPageTurn";
 
 interface PageProps {
   pageNumber: number;
@@ -21,8 +18,7 @@ export const Page: React.FC<PageProps> = ({
   frontPage,
   backPage,
 }) => {
-  const groupRef = useRef<THREE.Group>(null!);
-  const scroll = useScroll();
+  const groupRef = useScrollPageTurn({ totalPages, pageNumber });
 
   // 表面テクスチャ
   const frontTexture = useMemo(() => {
@@ -41,33 +37,6 @@ export const Page: React.FC<PageProps> = ({
       pageNumber: pageNumber * 2 + 1,
     });
   }, [backPage, pageNumber]);
-
-  useFrame((_, delta) => {
-    if (!groupRef.current) return;
-
-    // スクロールに応じたページめくり
-    const scrollOffset = scroll.offset;
-    const { targetRotationY, targetPositionZ } = updatePageTurn({
-      scrollOffset,
-      totalPages,
-      pageNumber,
-    });
-
-    groupRef.current.rotation.y = THREE.MathUtils.damp(
-      groupRef.current.rotation.y,
-      targetRotationY,
-      12,
-      delta,
-    );
-
-    // 重なり順と浮き上がり（アーチ効果）
-    groupRef.current.position.z = THREE.MathUtils.damp(
-      groupRef.current.position.z,
-      targetPositionZ,
-      12,
-      delta,
-    );
-  });
 
   const initPositionZ = (totalPages - pageNumber) * PAGE_CONFIG.stackOffsetZ;
 
