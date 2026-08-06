@@ -5,7 +5,7 @@ import { useScroll } from "@react-three/drei";
 import { createPageCanvasTexture } from "../utiles/createPageCanvasTexture";
 import { updatePageTurn } from "../utiles/updatePageTurn";
 
-interface PagehProps {
+interface PageProps {
   pageNumber: number;
   totalPages: number;
   title: string;
@@ -13,7 +13,7 @@ interface PagehProps {
   content: string;
 }
 
-export const Page: React.FC<PagehProps> = ({
+export const Page: React.FC<PageProps> = ({
   pageNumber,
   totalPages,
   title,
