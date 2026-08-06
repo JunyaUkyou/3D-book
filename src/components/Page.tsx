@@ -4,45 +4,43 @@ import { useFrame } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
 import { createPageCanvasTexture } from "../utilities/createPageCanvasTexture";
 import { updatePageTurn } from "../utilities/updatePageTurn";
-import { type PageData } from "../data/pages";
+import { type PageData } from "../const/pagesData";
+import { PAGE_CONFIG } from "../const/pageConfig";
+import { PageFace } from "./PageFace";
 
 interface PageProps {
   pageNumber: number;
   totalPages: number;
-  pageData: PageData;
+  frontPage?: PageData;
+  backPage?: PageData;
 }
 
 export const Page: React.FC<PageProps> = ({
   pageNumber,
   totalPages,
-  pageData,
+  frontPage,
+  backPage,
 }) => {
   const groupRef = useRef<THREE.Group>(null!);
   const scroll = useScroll();
 
-  const { title, chapter, content } = pageData;
-
   // 表面テクスチャ
   const frontTexture = useMemo(() => {
+    if (!frontPage) return;
     return createPageCanvasTexture({
-      title,
-      chapter,
-      content,
+      pagedata: frontPage,
       pageNumber: pageNumber * 2,
     });
-  }, [title, chapter, content, pageNumber]);
+  }, [frontPage, pageNumber]);
 
   // 裏面テクスチャ
   const backTexture = useMemo(() => {
+    if (!backPage) return;
     return createPageCanvasTexture({
-      title: `${title} (解説)`,
-      chapter: "",
-      content:
-        "前のページの詳細な解説および補足資料がこちらに記載されています。",
+      pagedata: backPage,
       pageNumber: pageNumber * 2 + 1,
-      bgColor: "#edf2f7",
     });
-  }, [title, pageNumber]);
+  }, [backPage, pageNumber]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
@@ -71,32 +69,24 @@ export const Page: React.FC<PageProps> = ({
     );
   });
 
+  const initPositionZ = (totalPages - pageNumber) * PAGE_CONFIG.stackOffsetZ;
+
   return (
-    <group ref={groupRef} position={[0, 0, (totalPages - pageNumber) * 0.006]}>
+    <group ref={groupRef} position={[0, 0, initPositionZ]}>
       {/* 表面 */}
-      <mesh position={[0.8, 0, 0]} castShadow receiveShadow>
-        <planeGeometry args={[1.6, 2.3]} />
-        <meshStandardMaterial
-          map={frontTexture}
-          side={THREE.FrontSide}
-          roughness={0.3}
-        />
-      </mesh>
+      <PageFace
+        isCover={frontPage?.isCover}
+        texture={frontTexture}
+        position={[0.8, 0, 0]}
+      />
 
       {/* 裏面 */}
-      <mesh
+      <PageFace
+        isCover={backPage?.isCover}
+        texture={backTexture}
         position={[0.8, 0, -0.011]}
         rotation={[0, Math.PI, 0]}
-        castShadow
-        receiveShadow
-      >
-        <planeGeometry args={[1.6, 2.3]} />
-        <meshStandardMaterial
-          map={backTexture}
-          side={THREE.FrontSide}
-          roughness={0.4}
-        />
-      </mesh>
+      />
     </group>
   );
 };

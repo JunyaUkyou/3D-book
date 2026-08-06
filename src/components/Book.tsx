@@ -1,23 +1,30 @@
 import { Page } from "./Page";
-import { FrontCover } from "./FrontCover";
 import { BookBase } from "./BookBase";
-import { PAGES_DATA } from "../data/pages";
+import { PAGES_DATA, type PageData } from "../const/pagesData";
+
+type PageKey = "front" | "back";
 
 export const Book = () => {
-  const totalPages = PAGES_DATA.length + 1;
+  const pages: Record<PageKey, PageData | undefined>[] = [];
+  for (let pageIndex = 0; pageIndex < PAGES_DATA.length; pageIndex += 2) {
+    pages.push({
+      front: PAGES_DATA[pageIndex],
+      back: PAGES_DATA[pageIndex + 1],
+    });
+  }
+  const totalPages = pages.length;
 
   return (
     <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}>
       <BookBase />
 
-      <FrontCover pageNumber={0} totalPages={totalPages} />
-
-      {PAGES_DATA.map((pageData, index) => (
+      {pages.map((pageData, index) => (
         <Page
           key={index}
-          pageNumber={index + 1}
+          pageNumber={index}
           totalPages={totalPages}
-          pageData={pageData}
+          frontPage={pageData.front}
+          backPage={pageData.back}
         />
       ))}
     </group>
