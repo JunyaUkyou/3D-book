@@ -2,8 +2,8 @@ import * as THREE from "three";
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
-import { createPageCanvasTexture } from "../utiles/createPageCanvasTexture";
-import { updatePageTurn } from "../utiles/updatePageTurn";
+import { createPageCanvasTexture } from "../utilities/createPageCanvasTexture";
+import { updatePageTurn } from "../utilities/updatePageTurn";
 
 interface Props {
   pageNumber: number;
