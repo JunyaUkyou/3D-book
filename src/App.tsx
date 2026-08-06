@@ -3,7 +3,7 @@ import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 import { Header } from "./components/Header";
 import { ScrollDownMessage } from "./components/ScrollDownMessage";
-// import { Stats, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 
 export default function App() {
   return (
@@ -28,8 +28,7 @@ export default function App() {
         <ScrollControls pages={6} damping={0.2}>
           <Book />
         </ScrollControls>
-        {/* <OrbitControls />
-        <Stats /> */}
+        <OrbitControls enableZoom={false} />
       </Canvas>
 
       <ScrollDownMessage />

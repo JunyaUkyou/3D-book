@@ -31,22 +31,24 @@ const PAGES_DATA = [
 ];
 
 export const Book = () => {
+  const pageMax = PAGES_DATA.length + 1;
+
   return (
     <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}>
       <BookBase />
+
+      <FrontCover pageNumber={0} totalPages={pageMax} />
 
       {PAGES_DATA.map((data, index) => (
         <Page
           key={index}
           pageNumber={index + 1}
-          totalPages={PAGES_DATA.length + 1}
+          totalPages={pageMax}
           chapter={data.chapter}
           title={data.title}
           content={data.content}
         />
       ))}
-
-      <FrontCover />
     </group>
   );
 };

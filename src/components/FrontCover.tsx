@@ -2,10 +2,15 @@ import * as THREE from "three";
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
-import { createPageCanvasTexture } from "../utiles/createPageCanvasTexture";
-import { updatePageTurn } from "../utiles/updatePageTurn";
+import { createPageCanvasTexture } from "../utilities/createPageCanvasTexture";
+import { updatePageTurn } from "../utilities/updatePageTurn";
 
-export const FrontCover = () => {
+interface Props {
+  pageNumber: number;
+  totalPages: number;
+}
+
+export const FrontCover = ({ pageNumber, totalPages }: Props) => {
   const scroll = useScroll();
   const coverGroupRef = useRef<THREE.Group>(null!);
 
@@ -30,9 +35,6 @@ export const FrontCover = () => {
       pageNumber: 1,
     });
   }, []);
-
-  const pageNumber = 0;
-  const totalPages = 6;
 
   useFrame((_, delta) => {
     if (!coverGroupRef.current) return;
