@@ -35,6 +35,8 @@ export const Book = () => {
     <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}>
       <BookBase />
 
+      <FrontCover pageNumber={0} totalPages={6} />
+
       {PAGES_DATA.map((data, index) => (
         <Page
           key={index}
@@ -45,8 +47,6 @@ export const Book = () => {
           content={data.content}
         />
       ))}
-
-      <FrontCover />
     </group>
   );
 };
