@@ -1,31 +1,15 @@
 import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
+import { Header } from "./components/Header";
+import { ScrollDownMessage } from "./components/ScrollDownMessage";
 // import { Stats, OrbitControls } from "@react-three/drei";
 
 export default function App() {
   return (
     <div className="w-screen h-screen bg-slate-950 font-sans text-white overflow-hidden select-none relative">
-      {/* ヘッダーUI */}
-      <header className="absolute top-0 left-0 right-0 p-6 z-20 flex justify-between items-center pointer-events-none">
-        <div>
-          <h1 className="text-xl font-bold tracking-wider text-amber-200">
-            3D BOOK EXPERIENCE
-          </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            React Three Fiber + Scroll-driven Flip Animation
-          </p>
-        </div>
-      </header>
+      <Header />
 
-      {/* スクロール誘導メッセージ */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center">
-        <div className="px-4 py-2 bg-slate-900/80 backdrop-blur border border-slate-800 rounded-full text-xs text-slate-300 shadow-xl">
-          <span>↓ スクロールしてページをめくってください</span>
-        </div>
-      </div>
-
-      {/* 3D Canvas */}
       <Canvas
         shadows
         camera={{ position: [0, 0, 6], fov: 32 }}
@@ -47,6 +31,8 @@ export default function App() {
         {/* <OrbitControls />
         <Stats /> */}
       </Canvas>
+
+      <ScrollDownMessage />
     </div>
   );
 }
