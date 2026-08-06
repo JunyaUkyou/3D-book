@@ -76,9 +76,18 @@ export const FrontCover = ({ pageNumber, totalPages }: Props) => {
         />
       </mesh>
       {/* 表紙の裏側（180度めくったときの左側） */}
-      <mesh position={[0.82, 0, -0.011]} rotation={[0, Math.PI, 0]}>
-        <planeGeometry args={[1.62, 2.34]} />
-        <meshStandardMaterial map={coverInnerTexture} roughness={0.4} />
+      <mesh
+        position={[0.8, 0, -0.011]}
+        rotation={[0, Math.PI, 0]}
+        castShadow
+        receiveShadow
+      >
+        <planeGeometry args={[1.6, 2.3]} />
+        <meshStandardMaterial
+          map={coverInnerTexture}
+          side={THREE.FrontSide}
+          roughness={0.4}
+        />
       </mesh>
     </group>
   );
