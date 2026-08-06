@@ -1,9 +1,8 @@
-import { useMemo } from "react";
-import { createPageCanvasTexture } from "../utilities/createPageCanvasTexture";
 import { type PageData } from "../const/pagesData";
 import { PAGE_CONFIG } from "../const/pageConfig";
 import { PageFace } from "./PageFace";
 import { useScrollPageTurn } from "../hooks/useScrollPageTurn";
+import { usePageTextures } from "../hooks/usePageTextures";
 
 interface PageProps {
   pageNumber: number;
@@ -18,41 +17,28 @@ export const Page: React.FC<PageProps> = ({
   frontPage,
   backPage,
 }) => {
-  const groupRef = useScrollPageTurn({ totalPages, pageNumber });
+  // スクロール時にページめくりが動作するRefオブジェクトを取得
+  const pageTurnRef = useScrollPageTurn({ totalPages, pageNumber });
 
-  // 表面テクスチャ
-  const frontTexture = useMemo(() => {
-    if (!frontPage) return;
-    return createPageCanvasTexture({
-      pagedata: frontPage,
-      pageNumber: pageNumber * 2,
-    });
-  }, [frontPage, pageNumber]);
+  // テクスチャを取得
+  const texture = usePageTextures(pageNumber, frontPage, backPage);
 
-  // 裏面テクスチャ
-  const backTexture = useMemo(() => {
-    if (!backPage) return;
-    return createPageCanvasTexture({
-      pagedata: backPage,
-      pageNumber: pageNumber * 2 + 1,
-    });
-  }, [backPage, pageNumber]);
-
+  // 後ろのページほど手前に配置する
   const initPositionZ = (totalPages - pageNumber) * PAGE_CONFIG.stackOffsetZ;
 
   return (
-    <group ref={groupRef} position={[0, 0, initPositionZ]}>
+    <group ref={pageTurnRef} position={[0, 0, initPositionZ]}>
       {/* 表面 */}
       <PageFace
         isCover={frontPage?.isCover}
-        texture={frontTexture}
+        texture={texture.front}
         position={[0.8, 0, 0]}
       />
 
       {/* 裏面 */}
       <PageFace
         isCover={backPage?.isCover}
-        texture={backTexture}
+        texture={texture.back}
         position={[0.8, 0, -0.011]}
         rotation={[0, Math.PI, 0]}
       />

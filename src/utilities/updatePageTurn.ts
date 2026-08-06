@@ -35,12 +35,9 @@ export const updatePageTurn: UpdatePageTurn = ({
 
   // // 重なり順と浮き上がり（アーチ効果）
   const isFlipped = progress > 0.5;
-  const baseZ = isFlipped
+  const targetPositionZ = isFlipped
     ? 0.01 + pageNumber * 0.006
     : (totalPages - pageNumber) * 0.006;
-  const arcLift = Math.sin(progress * Math.PI) * 0.15;
-
-  const targetPositionZ = baseZ + arcLift;
 
   return {
     targetRotationY,
