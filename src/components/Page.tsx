@@ -4,24 +4,23 @@ import { useFrame } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
 import { createPageCanvasTexture } from "../utilities/createPageCanvasTexture";
 import { updatePageTurn } from "../utilities/updatePageTurn";
+import { type PageData } from "../data/pages";
 
 interface PageProps {
   pageNumber: number;
   totalPages: number;
-  title: string;
-  chapter: string;
-  content: string;
+  pageData: PageData;
 }
 
 export const Page: React.FC<PageProps> = ({
   pageNumber,
   totalPages,
-  title,
-  chapter,
-  content,
+  pageData,
 }) => {
   const groupRef = useRef<THREE.Group>(null!);
   const scroll = useScroll();
+
+  const { title, chapter, content } = pageData;
 
   // 表面テクスチャ
   const frontTexture = useMemo(() => {

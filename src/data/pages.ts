@@ -1,11 +1,11 @@
-type PageContent = {
+export type PageData = {
   title: string;
   chapter: string;
   content: string;
   isCover?: boolean;
 };
 
-export const PAGES_DATA: PageContent[] = [
+export const PAGES_DATA: PageData[] = [
   {
     chapter: "Chapter I",
     title: "はじまりの物語",

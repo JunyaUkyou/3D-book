@@ -12,14 +12,12 @@ export const Book = () => {
 
       <FrontCover pageNumber={0} totalPages={totalPages} />
 
-      {PAGES_DATA.map((data, index) => (
+      {PAGES_DATA.map((pageData, index) => (
         <Page
           key={index}
           pageNumber={index + 1}
           totalPages={totalPages}
-          chapter={data.chapter}
-          title={data.title}
-          content={data.content}
+          pageData={pageData}
         />
       ))}
     </group>
