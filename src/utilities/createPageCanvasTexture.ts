@@ -1,5 +1,6 @@
 import * as THREE from "three";
-import { type PageData } from "../const/pagesData";
+import { type PageData, PAGE_TYPE } from "../const/pagesData";
+import { isCoverPage } from "../utilities/isCover";
 
 // 2D Canvasを使用して高精細なテクスチャを即時生成するヘルパー関数
 // これにより RenderTexture / createReconciler 起因の環境エラーを完璧に回避します
@@ -30,7 +31,7 @@ export function createPageCanvasTexture({
 }) {
   const borderColor = "#e2e8f0";
   const textColor = "#2d3748";
-  const { isCover, coverSubtitle, title, chapter, content } = pagedata;
+  const { pageType, coverSubtitle = "", title, chapter, content } = pagedata;
 
   const canvas = document.createElement("canvas");
   canvas.width = 512;
@@ -42,7 +43,7 @@ export function createPageCanvasTexture({
   // ctx.fillStyle = bgColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  if (isCover) {
+  if (isCoverPage(pageType)) {
     // 背景
     ctx.fillStyle = "#1a202c";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -56,30 +57,29 @@ export function createPageCanvasTexture({
     ctx.lineWidth = 2;
     ctx.strokeRect(34, 34, canvas.width - 68, canvas.height - 68);
 
-    // 表紙タイトル
-    ctx.fillStyle = "#ecc94b";
-    ctx.font = "bold 36px sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(title, canvas.width / 2, 220);
+    if (pageType === PAGE_TYPE.frontCover) {
+      // 表紙タイトル
+      ctx.fillStyle = "#ecc94b";
+      ctx.font = "bold 36px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(title, canvas.width / 2, 220);
 
-    // 表紙サブタイトル
-    if (coverSubtitle) {
+      // 表紙サブタイトル
+
       ctx.fillStyle = "#e2e8f0";
       ctx.font = "20px sans-serif";
       ctx.fillText(coverSubtitle, canvas.width / 2, 290);
+
+      // 案内
+      ctx.fillStyle = "#a0aec0";
+      ctx.font = "16px sans-serif";
+      ctx.fillText(
+        "SCROLL DOWN TO TURN PAGES",
+        canvas.width / 2,
+        canvas.height - 80,
+      );
     }
-
-    // 案内
-    ctx.fillStyle = "#a0aec0";
-    ctx.font = "16px sans-serif";
-    ctx.fillText(
-      "SCROLL DOWN TO TURN PAGES",
-      canvas.width / 2,
-      canvas.height - 80,
-    );
   } else {
-    console.log({ isCover, title });
-
     ctx.fillStyle = "#fdfbf7";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 

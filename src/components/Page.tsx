@@ -30,14 +30,14 @@ export const Page: React.FC<PageProps> = ({
     <group ref={pageTurnRef} position={[0, 0, initPositionZ]}>
       {/* 表面 */}
       <PageFace
-        isCover={frontPage?.isCover}
+        pageType={frontPage?.pageType}
         texture={texture.front}
         position={[0.8, 0, 0]}
       />
 
       {/* 裏面 */}
       <PageFace
-        isCover={backPage?.isCover}
+        pageType={backPage?.pageType}
         texture={texture.back}
         position={[0.8, 0, -0.011]}
         rotation={[0, Math.PI, 0]}
