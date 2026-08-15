@@ -1,4 +1,5 @@
 import { Page } from "./Page";
+import { Spine } from "./Spine";
 import { PAGES_DATA, type PageData } from "../const/pagesData";
 
 type PageKey = "front" | "back";
@@ -11,10 +12,12 @@ export const Book = () => {
       back: PAGES_DATA[pageIndex + 1],
     });
   }
-  console.log({ pages });
+
   const totalPages = pages.length;
   return (
     <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}>
+      <Spine totalPages={totalPages} />
+
       {pages.map((pageData, index) => (
         <Page
           key={index}

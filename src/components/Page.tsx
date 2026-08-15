@@ -23,9 +23,9 @@ export const Page: React.FC<PageProps> = ({
   // テクスチャを取得
   const texture = usePageTextures(pageNumber, frontPage, backPage);
 
-  // 後ろのページほど手前に配置する
+  // 後ろのページほど奥に配置する
   const initPositionZ = (totalPages - pageNumber) * PAGE_CONFIG.stackOffsetZ;
-
+  console.log({ pageNumber, initPositionZ });
   return (
     <group ref={pageTurnRef} position={[0, 0, initPositionZ]}>
       {/* 表面 */}

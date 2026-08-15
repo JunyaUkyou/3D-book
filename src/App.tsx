@@ -29,6 +29,7 @@ export default function App() {
           <Book />
         </ScrollControls>
         <OrbitControls enableZoom={false} />
+        <axesHelper args={[5]} />
       </Canvas>
 
       <ScrollDownMessage />
