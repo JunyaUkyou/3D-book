@@ -5,6 +5,7 @@ interface UpdatePageTurnParams {
 }
 
 interface UpdatePageTurnReturn {
+  targetRotationX: number;
   targetRotationY: number;
   targetPositionZ: number;
 }
@@ -33,13 +34,17 @@ export const updatePageTurn: UpdatePageTurn = ({
   // 0度（右）から -180度（左）へ回転
   const targetRotationY = -progress * Math.PI;
 
-  // // 重なり順と浮き上がり（アーチ効果）
+  // 重なり順と浮き上がり（アーチ効果）
   const isFlipped = progress > 0.5;
   const targetPositionZ = isFlipped
-    ? 0.01 + pageNumber * 0.006
+    ? pageNumber * 0.006
     : (totalPages - pageNumber) * 0.006;
 
+  // ページめくった後は背表紙の左へ移動する
+  const targetRotationX = -progress * 0.039;
+
   return {
+    targetRotationX,
     targetRotationY,
     targetPositionZ,
   };

@@ -2,33 +2,14 @@ import * as THREE from "three";
 import { type PageData, PAGE_TYPE } from "../const/pagesData";
 import { isCoverPage } from "../utilities/isCover";
 
-// 2D Canvasを使用して高精細なテクスチャを即時生成するヘルパー関数
-// これにより RenderTexture / createReconciler 起因の環境エラーを完璧に回避します
-export function createPageCanvasTexture({
-  // title,
-  // chapter = "",
-  // content = "",
-  // pageNumber,
-  // bgColor = "#fdfbf7",
-  // textColor = "#2d3748",
-  // borderColor = "#e2e8f0",
-  // isCover = false,
-  // coverSubtitle = "",
-  pagedata,
-  pageNumber,
-}: {
-  // title: string;
-  // chapter?: string;
-  // content?: string;
-  // pageNumber?: number | string;
-  // bgColor?: string;
-  // textColor?: string;
-  // borderColor?: string;
-  // isCover?: boolean;
-  // coverSubtitle?: string;
+interface Param {
   pagedata: PageData;
   pageNumber: number;
-}) {
+}
+
+// 2D Canvasを使用して高精細なテクスチャを即時生成するヘルパー関数
+// これにより RenderTexture / createReconciler 起因の環境エラーを完璧に回避します
+export function createPageCanvasTexture({ pagedata, pageNumber }: Param) {
   const borderColor = "#e2e8f0";
   const textColor = "#2d3748";
   const { pageType, coverSubtitle = "", title, chapter, content } = pagedata;
