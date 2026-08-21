@@ -3,7 +3,7 @@ import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 import { Header } from "./components/Header";
 import { ScrollDownMessage } from "./components/ScrollDownMessage";
-import { OrbitControls } from "@react-three/drei";
+// import { OrbitControls } from "@react-three/drei";
 
 export default function App() {
   return (
@@ -12,7 +12,10 @@ export default function App() {
 
       <Canvas
         shadows
-        camera={{ position: [0, 0, 6], fov: 32 }}
+        camera={{
+          position: [0, 0, 6],
+          fov: 32,
+        }}
         className="w-full h-full"
       >
         <ambientLight intensity={1.2} />
@@ -28,7 +31,11 @@ export default function App() {
         <ScrollControls pages={6} damping={0.2}>
           <Book />
         </ScrollControls>
-        <OrbitControls enableZoom={false} />
+        {/* <OrbitControls
+          target={[0, 0, 0]}
+          enableZoom={false}
+          enablePan={false}
+        /> */}
         <axesHelper args={[5]} />
       </Canvas>
 

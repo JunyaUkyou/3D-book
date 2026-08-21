@@ -1,10 +1,16 @@
 import { Page } from "./Page";
 import { Spine } from "./Spine";
 import { PAGES_DATA, type PageData } from "../const/pagesData";
+import { PAGE_CONFIG } from "../const/pageConfig";
+import { useResponsiveCamera } from "../hooks/useResponsiveCamera";
 
 type PageKey = "front" | "back";
 
 export const Book = () => {
+  const bookWidth = PAGE_CONFIG.cover.args[0] * 2;
+  const bookHeight = PAGE_CONFIG.cover.args[1];
+  useResponsiveCamera(bookWidth, bookHeight);
+
   const pages: Record<PageKey, PageData | undefined>[] = [];
   for (let pageIndex = 0; pageIndex < PAGES_DATA.length; pageIndex += 2) {
     pages.push({
@@ -15,7 +21,8 @@ export const Book = () => {
 
   const totalPages = pages.length;
   return (
-    <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}>
+    <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
+      {/* <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}> */}
       <Spine totalPages={totalPages} />
 
       {pages.map((pageData, index) => (
