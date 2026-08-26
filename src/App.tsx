@@ -2,9 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 import { Header } from "./components/Header";
-import { ScrollDownMessage } from "./components/ScrollDownMessage";
 import { useGetBookPage } from "./hooks/useGetBookPage";
-
 // import { OrbitControls } from "@react-three/drei";
 
 export default function App() {
@@ -43,8 +41,6 @@ export default function App() {
         /> */}
         <axesHelper args={[5]} />
       </Canvas>
-
-      <ScrollDownMessage />
     </div>
   );
 }
