@@ -5,7 +5,6 @@ interface UpdatePageTurnParams {
 }
 
 interface UpdatePageTurnReturn {
-  targetRotationX: number;
   targetRotationY: number;
   targetPositionZ: number;
 }
@@ -40,11 +39,7 @@ export const updatePageTurn: UpdatePageTurn = ({
     ? pageNumber * 0.006
     : (totalPages - pageNumber) * 0.006;
 
-  // ページめくった後は背表紙の左へ移動する
-  const targetRotationX = -progress * 0.039;
-
   return {
-    targetRotationX,
     targetRotationY,
     targetPositionZ,
   };

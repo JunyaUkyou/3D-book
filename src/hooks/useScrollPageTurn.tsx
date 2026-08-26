@@ -18,19 +18,11 @@ export function useScrollPageTurn({ totalPages, pageNumber }: Param) {
 
     // スクロールに応じたページめくり
     const scrollOffset = scroll.offset;
-    const { targetRotationX, targetRotationY, targetPositionZ } =
-      updatePageTurn({
-        scrollOffset,
-        totalPages,
-        pageNumber,
-      });
-
-    groupRef.current.position.x = THREE.MathUtils.damp(
-      groupRef.current.position.x,
-      targetRotationX,
-      12,
-      delta,
-    );
+    const { targetRotationY, targetPositionZ } = updatePageTurn({
+      scrollOffset,
+      totalPages,
+      pageNumber,
+    });
 
     groupRef.current.rotation.y = THREE.MathUtils.damp(
       groupRef.current.rotation.y,
