@@ -19,7 +19,7 @@ export const Spine = ({ totalPages }: Props) => {
     <mesh position={[0, 0, spinePositionZ]}>
       <boxGeometry args={[0.039, 2.36, depth]} />
 
-      <meshStandardMaterial color={"#d69e2e"} />
+      <meshStandardMaterial color={"#1a202c"} />
     </mesh>
   );
 };
