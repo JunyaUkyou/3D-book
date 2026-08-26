@@ -25,7 +25,7 @@ export const Page: React.FC<PageProps> = ({
 
   // 後ろのページほど奥に配置する
   const initPositionZ = (totalPages - pageNumber) * PAGE_CONFIG.stackOffsetZ;
-  console.log({ pageNumber, initPositionZ });
+
   return (
     <group ref={pageTurnRef} position={[0, 0, initPositionZ]}>
       {/* 表面 */}
