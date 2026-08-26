@@ -3,9 +3,14 @@ import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 import { Header } from "./components/Header";
 import { ScrollDownMessage } from "./components/ScrollDownMessage";
+import { useGetBookPage } from "./hooks/useGetBookPage";
+
 // import { OrbitControls } from "@react-three/drei";
 
 export default function App() {
+  const pages = useGetBookPage();
+  const totalPages = pages.length;
+
   return (
     <div className="w-screen h-screen bg-slate-950 font-sans text-white overflow-hidden select-none relative">
       <Header />
@@ -28,8 +33,8 @@ export default function App() {
         />
         <pointLight position={[-5, 5, -2]} intensity={0.5} />
 
-        <ScrollControls pages={6} damping={0.2}>
-          <Book />
+        <ScrollControls pages={totalPages} damping={0.2}>
+          <Book pages={pages} totalPages={totalPages} />
         </ScrollControls>
         {/* <OrbitControls
           target={[0, 0, 0]}

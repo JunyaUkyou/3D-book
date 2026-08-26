@@ -14,6 +14,10 @@ export type PageData = {
   pageType: PageType;
 };
 
+type PageKey = "front" | "back";
+
+export type SpreadPage = Record<PageKey, PageData>;
+
 export const PAGES_DATA: PageData[] = [
   {
     title: "THE 3D BOOK",
