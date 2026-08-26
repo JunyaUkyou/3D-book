@@ -16,7 +16,6 @@ export const Book = ({ pages, totalPages }: Props) => {
 
   return (
     <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
-      {/* <group rotation={[Math.PI / 8, 0, 0]} position={[0, -0.2, 0]}> */}
       <Spine totalPages={totalPages} />
 
       {pages.map((pageData, index) => (
