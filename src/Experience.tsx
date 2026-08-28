@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { Book } from "./components/Book";
 import { useGetBookPage } from "./hooks/useGetBookPage";
-// import { OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 
 export const Experience = () => {
   const pages = useGetBookPage();
@@ -30,8 +30,8 @@ export const Experience = () => {
       <ScrollControls pages={totalPages} damping={0.2}>
         <Book pages={pages} totalPages={totalPages} />
       </ScrollControls>
-      {/* <OrbitControls target={[0, 0, 0]} enableZoom={false} enablePan={false} />
-      <axesHelper args={[5]} /> */}
+      <OrbitControls target={[0, 0, 0]} enableZoom={false} enablePan={false} />
+      <axesHelper args={[5]} />
     </Canvas>
   );
 };

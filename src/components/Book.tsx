@@ -15,7 +15,7 @@ export const Book = ({ pages, totalPages }: Props) => {
   useResponsiveCamera(bookWidth, bookHeight);
 
   return (
-    <group rotation={[0, 0, 0]} position={[0, 0, 0]}>
+    <group rotation={[-Math.PI / 3, -Math.PI / 10, 0]} position={[0, 0, 0]}>
       <Spine totalPages={totalPages} />
 
       {pages.map((pageData, index) => (
