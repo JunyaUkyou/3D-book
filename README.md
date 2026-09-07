@@ -1,77 +1,42 @@
-# React + TypeScript + Vite
+# 3D Book Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive 3D book UI component built with Three.js. It delivers a smooth, realistic page-flipping experience synchronized with the user's scroll operation.
 
-Currently, two official plugins are available:
+![Demo Image](./src/assets/animation.webp)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 📖 Overview
+A UI component that combines 3D book modeling via Three.js with scroll-driven animations. By controlling the opening and closing angles of pages in real time based on scroll distance, it provides an intuitive web experience that mimics the feel of flipping through a physical paper book.
 
-## React Compiler
+- **Live Demo:** [https://3d-book.ukyo.me](https://3d-book.ukyo.me)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Note: This will impact Vite dev & build performances.
+## ✨ Key Features
+* **Realistic 3D Modeling:** Built by combining `BoxGeometry` (front cover, back cover, spine) and `PlaneGeometry` (inner pages).
+* **Scroll-Linked Animation:** Leverages `ScrollControls` to synchronize page opening/closing angles from 0° to -180° with scroll progression.
+* **[WIP] Responsive Optimization:** Dynamically adjusting 3D camera composition and viewports for mobile and smaller screens.
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
+* **Frontend:** React, TypeScript
+* **3D / Graphics:** Three.js
+* **Styling:** Tailwind CSS
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
+* Node.js
+* npm / yarn / pnpm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation & Local Run
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Clone the repository
+git clone https://github.com/JunyaUkyou/3D-book.git
 
-```
+# Navigate into the project directory
+cd 3D-book
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Install dependencies
+npm install
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+# Start the development server
+npm run dev
